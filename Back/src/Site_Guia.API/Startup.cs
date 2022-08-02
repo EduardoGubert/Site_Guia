@@ -32,6 +32,7 @@ namespace Site_Guia.API
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Site_Guia.API", Version = "v1" });
@@ -53,6 +54,10 @@ namespace Site_Guia.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(acces => acces.AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
